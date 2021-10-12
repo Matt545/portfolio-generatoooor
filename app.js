@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 
+//Prompt to get user information.
 const promptUser = () => {
   return inquirer.prompt([
     {
@@ -29,13 +30,27 @@ const promptUser = () => {
       }
     },
     {
+      type: 'confirm',
+      name: 'confirmAbout',
+      message: 'Would you like to enter some information about yourself for an "About" section?',
+      default: true
+    },
+    {
       type: 'input',
       name: 'about',
-      message: 'Provide some information about yourself:'
+      message: 'Provide some information about yourself:',
+      when: ({ confirmAbout }) => {
+        if (confirmAbout) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
   ]);
 };
 
+//Prompt for all projects user wants to submit.
 const promptProject = portfolioData => {
 
 // If there's no projects array property, CREATE ONE!
